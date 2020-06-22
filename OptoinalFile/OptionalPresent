@@ -1,0 +1,21 @@
+package com.learnJava.Optional;
+
+import java.util.Optional;
+
+public class OptionalPresentExample {
+    public static void main(String[] args) {
+
+        Optional optional= Optional.ofNullable("hello optional");
+        //Optional optional= Optional.ofNullable(null);
+        //System.out.println(optional.isPresent());
+
+        if(optional.isPresent()){
+            System.out.println(optional.get());
+        }else{
+            System.out.println("no value");
+        }
+        
+        optional.ifPresent(s-> System.out.println(s));
+
+    }
+}
