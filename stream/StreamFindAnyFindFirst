@@ -1,0 +1,38 @@
+package com.learnJava.stream;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.Optional;
+
+public class StreamFindAnyFindFirstExample {
+
+    public static Optional<Student> findAny(){
+        return StudentDataBase.getAllStudent().stream()
+                .filter(Student -> Student.getGap() >= 3.9)
+                .findAny();
+    }
+
+    public static Optional<Student> findFirst(){
+        return StudentDataBase.getAllStudent().stream()
+                .filter(Student -> Student.getGap() >= 3.9)
+                .findFirst();
+    }
+
+    public static void main(String[] args) {
+        Optional<Student> studentOptionalFindAny = findAny();
+        if(studentOptionalFindAny.isPresent()){
+            System.out.println("Find the any student :" + studentOptionalFindAny.get());
+        }else {
+            System.out.println("find no one");
+        }
+
+        Optional<Student> studentOptionalFindFirst = findFirst();
+        if(studentOptionalFindFirst.isPresent()){
+            System.out.println("Find the first student :" + studentOptionalFindFirst.get());
+        }else {
+            System.out.println("find no one");
+        }
+
+    }
+}
