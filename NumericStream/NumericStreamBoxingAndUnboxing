@@ -1,0 +1,35 @@
+package com.learnJava.NumericStream;
+
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class NumericStreamBoxingAndUnboxingExample {
+
+  public static List<Integer> boxing(){
+      // create stream from 1 to 10 inclusive
+      return IntStream.rangeClosed(1,10)
+              // int
+              .boxed()
+              //Integer
+              .collect(Collectors.toList());
+  }
+
+  public static int unBoxing(List<Integer> integerList){
+      //from wrapper to primitive
+      return integerList.stream()
+              //wrapper Integer value
+              .mapToInt(Integer::intValue) //Instream(intValue of the Wrapper class)
+              .sum();
+  }
+
+    public static void main(String[] args) {
+        System.out.println("boxing: " + boxing());
+        // get value from wrapper class
+        List<Integer> integerList = boxing();
+        // print out the primitive value
+        System.out.println("sum: " + unBoxing(integerList));
+
+    }
+}
