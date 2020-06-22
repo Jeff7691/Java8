@@ -1,0 +1,51 @@
+package com.learnJava.Optional;
+
+import com.learnJava.data.Bike;
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.Optional;
+
+public class OptionalMapFlatMapExample {
+
+    //filter
+    public static void OptionalFilter(){
+        Optional<Student> optionalStudent = Optional.ofNullable(StudentDataBase.studentSupplier.get());
+        optionalStudent
+                .filter(student -> student.getGap() >= 3.5)
+                .ifPresent(student -> System.out.println(student));
+    }
+    //map
+   public static void  OptionalMap(){
+        Optional<Student> optionalStudent = Optional.ofNullable(StudentDataBase.studentSupplier.get());
+        if(optionalStudent.isPresent()){
+            Optional<String> stringOptional =  // Map return Optional<T>
+            optionalStudent
+                    .filter(student -> student.getGap() >= 3.5)
+                    .map(Student::getName);
+            System.out.println(stringOptional.get()); // get name from object
+        }
+   }
+
+
+    //flatmap: get an optional object from another optional object
+    public static void OptionalFlatMap(){
+        Optional<Student> optionalStudent = Optional.ofNullable(StudentDataBase.studentSupplier.get());
+        Optional<String>  bikeName = optionalStudent
+                .filter(student -> student.getGap() >= 3.5) // Optional<Student<Optional<Bike>>>
+                .flatMap(Student::getBike) // return -> Optional<Bike>
+                .map(Bike::getName); // return String
+
+        //System.out.println("bike name : " +bikeName);
+        bikeName.ifPresent(s -> System.out.println("bike name : " +s));
+    }
+
+
+
+    public static void main(String[] args) {
+        OptionalFilter();
+        OptionalMap();
+        OptionalFlatMap();
+
+    }
+}
