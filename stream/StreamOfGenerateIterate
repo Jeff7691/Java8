@@ -1,0 +1,28 @@
+package com.learnJava.stream;
+
+
+import javax.print.DocFlavor;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+
+public class StreamOfGenerateIterateExample {
+    public static void main(String[] args) {
+        // Stream.of print out the Stream<Type>; limited scope
+        Stream<String> stringStream = Stream.of("Adam", "Dan", "Julie");
+        stringStream.forEach(System.out::println);
+
+        //Stream.iterate unlimited scope, need to use limit() to control it
+        Stream.iterate(1, x -> x * 2)
+                .limit(10)
+                .forEach(System.out::println);
+        //Stream.generate: use Random()::nextInt
+        // unlimited scope, need to use limited() to control it
+        //use supplier
+        Supplier<Integer> integerSupplier = new Random():: nextInt;
+        Stream.generate(integerSupplier)
+                .limit(5)
+                .forEach(System.out::println);
+
+    }
+}
