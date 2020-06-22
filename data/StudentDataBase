@@ -8,9 +8,14 @@ public class StudentDataBase {
 
 
     public static Supplier<Student> studentSupplier = () ->{
-        return new Student("Adam",2,3.6,"male",Arrays.asList("swimming", "basketball", "volleyball"), 11);
+        Bike bike = new Bike();
+        bike.setName("ABC");
+        bike.setModel("XYZ");
+        Student student = new Student("Adam",2,3.6,"male", Arrays.asList("swimming", "basketball", "volleyball"), 11);
+        student.setBike(Optional.ofNullable(bike));
+        return student;
     };
-
+    
     /*
     * Total of 6 students in the database.
     * @return
