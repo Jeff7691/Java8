@@ -1,0 +1,34 @@
+package com.learnJava.NumericStream;
+
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
+
+public class NumericStreamRangeExample {
+    public static void main(String[] args) {
+        IntStream intStream = IntStream.range(1,50); // INtStream is also a type
+        System.out.println("range count " +intStream.count());
+
+        //stream can only iterate only once
+        // IllegalStateException: stream has already been operated upon or closed
+        //intStream.forEach(value -> System.out.println(value + " , "));
+
+
+        IntStream.range(1,50).forEach(value -> System.out.println(value + " , "));
+        System.out.println();
+        System.out.println("range closed count " + IntStream.rangeClosed(1,50).count());
+        IntStream.rangeClosed(1,50).forEach(value -> System.out.print(value + " % "));
+
+        System.out.println();
+
+        System.out.println("long stream range closed count " + LongStream.rangeClosed(1,50).count());
+        LongStream.rangeClosed(1,50).forEach(value -> System.out.print(value + " % "));
+
+        System.out.println();
+        System.out.println("double stream count" + IntStream.rangeClosed(1,50).asDoubleStream().count());
+        IntStream.rangeClosed(1,50).asDoubleStream().forEach(value -> System.out.print(value + "|"));
+
+    }
+}
+
