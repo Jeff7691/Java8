@@ -1,0 +1,89 @@
+package com.learnJava.stream;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+public class StreamExamples {
+    public static void main(String[] args) {
+        //student name and their acativities in a map :: use collect(Collector.toMap()
+        //Collectors is a class
+
+        //call student name from DB and call stream method
+        //1st to create StudentDB then Map<>
+        //Map<String, List<String>> studentMap = StudentDataBase.getAllStudent().stream()
+        //        .collect(Collectors.toMap(Student::getName, Student::getActivities));
+
+        //System.out.println(studentMap);
+
+
+        //want student whose grade >= 3 use filter use lamda
+        // filter is like if
+      //  Predicate<Student> studentPredicate = (student -> student.getGradeLevel() >= 3);
+      //  Predicate<Student> studentGPAPredicate = (student -> student.getGap() >= 3.9);
+
+      //  Map<String, List<String>> studentMap = StudentDataBase.getAllStudent().stream()
+      //          .filter(studentPredicate)
+      //          .filter(studentGPAPredicate)
+      //          .collect(Collectors.toMap(Student::getName, Student::getActivities));
+
+      //  System.out.println(studentMap);
+
+
+
+
+
+
+
+        //parallel
+        //put student into <>
+        //Predicate<String> stringPredicate = (student -> student.getGradeLevel() >= 3);
+       // Predicate<Student> studentPredicate = (Student -> Student.getGradeLevel() >= 3);
+       // Predicate<Student> studentGPAPredicate = (Student -> Student.getGap() >= 3.9);
+
+        //Map<String, List<String>> studentMap = StudentDataBase.getAllStudent().parallelStream()
+        //        .filter(studentPredicate)
+        //        .filter(studentGPAPredicate)
+        //        .collect(Collectors.toMap(Student::getName, Student::getActivities));
+
+        //System.out.println(studentMap);
+
+        //Intro to Stream
+
+        /*
+        Predicate<Student> studentPredicate = Student -> Student.getGradeLevel() >= 3;
+        Predicate<Student> studentGPAPredicate = Student -> Student.getGap() >= 3.9;
+
+        Map<String, List<String>> studentMap = StudentDataBase.getAllStudent().parallelStream()
+                //Intermediate Operations; get Stream<Students>
+                .filter(studentPredicate)
+                .filter(studentGPAPredicate)
+                //Terminal Operation:get result; get Map<>
+                .collect(Collectors.toMap(Student::getName, Student::getActivities));
+
+        System.out.println(studentMap);
+       */
+
+        Predicate<Student> studentPredicate = Student -> Student.getGradeLevel() >= 3;
+        Predicate<Student> studentGPAPredicate = Student -> Student.getGap() >= 3.9;
+
+        Map<String, List<String>> studentMap = StudentDataBase.getAllStudent().parallelStream()
+                //get all student info
+                .peek((Student->{
+                    System.out.println(Student);
+                }))
+                .filter(studentPredicate)
+                .peek((Student ->{
+                    System.out.println("After 1st filter :" + Student);
+                }))
+                .filter(studentGPAPredicate)
+                .peek((Student ->{
+                    System.out.println("After 2nd filter :" + Student);
+                }))
+                .collect(Collectors.toMap(Student::getName, Student::getActivities));
+
+        System.out.println(studentMap);
