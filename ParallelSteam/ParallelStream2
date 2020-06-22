@@ -1,0 +1,53 @@
+package com.learnJava.ParallelStream;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
+public class ParallelStreamExample1 {
+
+    public static List<String> SequentialStudentActivities(){
+
+        long startTime = System.currentTimeMillis();
+
+        List<String>  studentActivities = StudentDataBase.getAllStudent()
+                .stream() //Stream<Student>
+                .map(Student::getActivities) // Stream<String>
+                .flatMap(List::stream)// transfer List<String> to String, otherwise, toList() will complaint.
+                .distinct() // deduplicate
+                .sorted()
+                .collect(toList());
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("Duration to execute the pipeline in sequential :" + (endTime - startTime));
+        return  studentActivities;
+    }
+
+    public static List<String> ParallelStudentActivities(){
+
+        long startTime = System.currentTimeMillis();
+
+        List<String>  studentActivities = StudentDataBase.getAllStudent()
+                .stream() //Stream<Student>
+                .parallel()
+                .map(Student::getActivities) // Stream<String>
+                .flatMap(List::stream)// transfer List<String> to String, otherwise, toList() will complaint.
+                .distinct() // deduplicate
+                .sorted()
+                .collect(toList());
+        long endTime = System.currentTimeMillis();
+        System.out.println("Duration to execute the pipeline in parallel :" + (endTime - startTime));
+
+
+        return  studentActivities;
+    }
+
+
+    public static void main(String[] args) {
+        SequentialStudentActivities();
+        ParallelStudentActivities();
+    }
+}
