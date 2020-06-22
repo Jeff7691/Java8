@@ -1,0 +1,38 @@
+package com.learnJava.stream;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.List;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
+
+public class StreamsMapExample {
+    //map transfer one type to another type
+    //example: transfer object(name) to String(student name)
+
+    public static List<String>  nameList(){
+       List<String> studentLists =  StudentDataBase.getAllStudent().stream() // Stream<Student>
+                .map(Student::getName) //Stream<String>
+                .map(String::toUpperCase) // Stream<String> ops: uppercase ops
+                .collect(toList()); // option + return // list<String>
+        return studentLists;
+    }
+
+    public static  Set<String> nameSet(){ // set
+        Set<String> studentSet = StudentDataBase.getAllStudent().stream()  //dry
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .collect(toSet());  //set
+
+        return studentSet; //set
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(nameList());
+        System.out.println(nameSet());
+    }
+}
