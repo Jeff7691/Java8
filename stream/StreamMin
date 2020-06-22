@@ -1,0 +1,29 @@
+package com.learnJava.stream;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+public class StreamMinExample {
+    public static Optional<Integer> findMinValue(List<Integer> integerList){
+        return integerList.stream()
+                .reduce( (x,y) -> x < y ? x : y);
+    }
+
+    public static void main(String[] args) {
+
+        //if
+        List<Integer> integerList = Arrays.asList(6,7,8,9,10);
+        //else
+        //List<Integer> integerList = new ArrayList<>();
+        Optional<Integer> minValueOptional = findMinValue(integerList);
+       // System.out.println("minValue: " + minValue); // output is 0
+
+        if(minValueOptional.isPresent()){
+            System.out.println("print out the minValue :" + minValueOptional.get());
+        }else{
+            System.out.println("No input is passed.");
+        }
+    }
+}
