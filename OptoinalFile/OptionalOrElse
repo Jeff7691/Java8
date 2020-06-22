@@ -1,0 +1,50 @@
+package com.learnJava.Optional;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.Optional;
+
+public class OptionalOrElseExample {
+    public static Optional<String> optionalOrElse0(){
+        Optional<Student> studentOptional = Optional.ofNullable(StudentDataBase.studentSupplier.get());
+        return studentOptional.map(Student::getName);
+
+    }
+
+    public static String OptionalOrElse(){
+        //Optional<Student> studentOptional  = Optional.ofNullable(StudentDataBase.studentSupplier.get());
+
+       Optional<Student> studentOptional= Optional.ofNullable(null);
+        String name = studentOptional.map(Student::getName).orElse("Default");
+        return name;
+
+    }
+
+    public static String OptionalOrElseGet(){
+        //Optional<Student> optionalStudent = Optional.ofNullable(StudentDataBase.studentSupplier.get());
+        Optional<Student> optionalStudent = Optional.ofNullable(null);
+        String name = optionalStudent.map(Student::getName).orElseGet(()->"Default");
+        return name;
+    }
+    
+    //orElseThrow: use lambda expression and new RuntimeException()
+    public static String optionalOrElseThrow(){
+       // Optional<Student> optionalStudent = Optional.ofNullable(StudentDataBase.studentSupplier.get());
+
+        Optional<Student> optionalStudent = Optional.ofNullable(null);
+        //throw: Exception in thread "main" java.lang.RuntimeException: no data available
+
+        String name = optionalStudent.map(Student::getName).orElseThrow(() ->
+                new RuntimeException("no data available"));
+        return name;
+    }
+
+
+    public static void main(String[] args) {
+        //System.out.println(optionalOrElse0());
+        System.out.println("OptionalOrElse: " + OptionalOrElse());
+        System.out.println("OptionalOrElseGet: " + OptionalOrElseGet());
+        System.out.println("OptoinalOrElseThrow: " + optionalOrElseThrow());
+    }
+}
