@@ -1,0 +1,37 @@
+package com.learnJava.stream;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
+public class StreamFlatMapExample {
+
+    public static List<String> printStudentActivities(){
+        List<String>  studentActivities = StudentDataBase.getAllStudent().stream() //Stream<Student>
+                .map(Student::getActivities) // Stream<String>
+                .flatMap(List::stream)// transfer List<String> to String, otherwise, toList() will complaint.
+                .distinct() // deduplicate
+                .sorted()
+                .collect(toList());
+        return  studentActivities;
+    }
+
+    public static long getNoOfStudentActivities(){
+        long NoOfStudentActivities = StudentDataBase.getAllStudent().stream()
+                .map(Student::getActivities)
+                .flatMap(List::stream)
+                .distinct()
+                .count();
+        return NoOfStudentActivities;
+    }
+
+
+
+    public static void main(String[] args) {
+        System.out.println("printStudentActivities :" + printStudentActivities());
+        System.out.println("getNoStudentActivities :" + getNoOfStudentActivities());
+    }
+}
