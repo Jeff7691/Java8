@@ -1,0 +1,38 @@
+package com.learnJava.Stream_Terminal;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.stream.Collectors;
+
+public class StreamJoiningExample {
+    //joining use to concate the string
+    public static String Joining_1(){
+        return StudentDataBase.getAllStudent()
+                .stream()
+                .map(Student::getName)
+                .collect(Collectors.joining());
+    }
+
+
+    public static String Joining_2(){
+        return StudentDataBase.getAllStudent()
+                .stream()
+                .map(Student::getName)
+                .collect(Collectors.joining("-"));
+    }
+
+    public static String Joining_3(){
+       return StudentDataBase.getAllStudent()
+       .stream()
+       .map(Student::getName)
+       .collect(Collectors.joining("-","(",")"));
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Joining_1 : " + Joining_1());
+        System.out.println("Joining_2 : " + Joining_2());
+        System.out.println("Joining_3 : " + Joining_3());
+
+    }
+}
