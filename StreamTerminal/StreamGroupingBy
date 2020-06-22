@@ -1,0 +1,78 @@
+package com.learnJava.Stream_Terminal;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.*;
+
+public class StreamGroupingByExample {
+
+    public static void StudentGroupByGender(){
+        Map<String, List<Student>> studentMap = StudentDataBase.getAllStudent()
+                .stream()
+                .collect(groupingBy(Student::getGender));
+        System.out.println(studentMap);
+    }
+
+    public static void CustomizedGroupByGPA(){
+        Map<String, List<Student>> stringListMap2 = StudentDataBase.getAllStudent()
+                .stream()
+                .collect(groupingBy(Student -> Student.getGap() >= 3.8 ? "OUTSTANDING" : "Average"));
+        System.out.println(stringListMap2);
+    }
+
+    public static void TwoLevelGroupBy1(){
+        Map<Integer, Map<String, List<Student>>> studentMap3 = StudentDataBase.getAllStudent()
+                .stream()
+                .collect(groupingBy(Student::getGradeLevel,
+                        groupingBy(Student -> Student.getGap() >= 3.8 ? "OUTSTANDING" : "Average")));
+        System.out.println(studentMap3);
+    }
+
+    public static void TwoLevelGroupBy2(){
+        Map<Integer, Integer> studentMap4 = StudentDataBase.getAllStudent()
+                .stream()
+                .collect(groupingBy(Student::getGradeLevel,
+                        summingInt(Student::getNoteBooks)));
+        System.out.println(studentMap4);
+    }
+
+
+    public static void TwoLevelGroupBy3(){
+       Map<String, Map<String, List<Student>>> studentMap4 = StudentDataBase.getAllStudent()
+               .stream()
+               .collect(groupingBy(Student::getName,
+                       groupingBy(Student -> Student.getGap() >= 3.9 ? "OUTSTANDING" : "AVERAGE")));
+        System.out.println(studentMap4);
+    }
+
+
+    public static void TwoLevelGroupBy4(){
+        Map<String, Map<Integer, List<Student>>> StudentMap5 = StudentDataBase.getAllStudent()
+                .stream()
+                .collect(groupingBy(Student::getName,
+                        groupingBy(Student::getNoteBooks)));
+        System.out.println(StudentMap5);
+    }
+
+    public static void TwoLevelGroupBy5(){
+        Map<String, Integer> studentMap6 = StudentDataBase.getAllStudent()
+                .stream()
+                .collect(groupingBy(Student::getName,
+                        summingInt(Student::getNoteBooks)));
+        System.out.println(studentMap6);
+    }
+
+
+    public static void main(String[] args) {
+        //StudentGroupByGender();
+        //CustomizedGroupByGPA();
+        //TwoLevelGroupBy1();
+       // TwoLevelGroupBy2();
+      //  TwoLevelGroupBy3();
+        TwoLevelGroupBy5();
+    }
+}
