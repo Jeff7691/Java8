@@ -1,0 +1,23 @@
+package com.learnJava.stream;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
+public class StreamFilterExample {
+    //filter is the interface of Predicate
+    public static List<Student> filterStudent(){
+        return StudentDataBase.getAllStudent().stream()
+                .filter(Student -> Student.getGender().equals("female"))
+                .filter(Student -> Student.getGap() >= 3.9)
+                .collect(toList());
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Student filter by gender and GPA");
+        filterStudent().forEach(System.out::println);
+    }
+}
