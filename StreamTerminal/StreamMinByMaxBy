@@ -1,0 +1,33 @@
+package com.learnJava.Stream_Terminal;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.Comparator;
+import java.util.Optional;
+
+import static java.util.stream.Collectors.maxBy;
+import static java.util.stream.Collectors.minBy;
+
+public class StreamMinByMaxByExample {
+
+    //MinBy and MaxBy always return to Optional
+    public static Optional<Student> MinByExample(){
+         return StudentDataBase.getAllStudent()
+                .stream()
+                .collect(minBy(Comparator.comparing(Student::getGap)));
+
+    }
+
+    public static Optional<Student> MaxByExample(){
+        return StudentDataBase.getAllStudent()
+                .stream()
+                .collect(maxBy(Comparator.comparing(Student::getGap)));
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Student info who got min GPA : " + MinByExample());
+        System.out.println("Student info who got max GPA : " + MaxByExample());
+
+    }
+}
