@@ -1,0 +1,45 @@
+package com.learnJava.stream;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import java.util.Comparator;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
+public class StreamComparatorExample {
+
+  public static List<Student> sortedStudentByName(){ // List<Student>
+      return StudentDataBase.getAllStudent()
+              .stream()
+              .sorted(Comparator.comparing(Student::getName)) //Alphabetical Order
+              .collect(toList());
+  }
+
+    public static List<Student> sortedStudentByGPA(){ // List<Student>
+        return StudentDataBase.getAllStudent()
+                .stream()
+                .sorted(Comparator.comparing(Student::getGap)) //Alphabetical Order
+                .collect(toList());
+    }
+
+    public static List<Student> sortedStudentByGPADesc(){ // List<Student>
+        return StudentDataBase.getAllStudent()
+                .stream()
+                .sorted(Comparator.comparing(Student::getGap).reversed()) //Alphabetical Order
+                .collect(toList());
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Sorted Student by Name in Alphabetical Order");
+        sortedStudentByName().forEach(System.out::println);
+
+        System.out.println("Sorted Student by GPA");
+        sortedStudentByGPA().forEach(System.out::println);
+
+        System.out.println("Sorted Student by GPA in desc");
+        sortedStudentByGPADesc().forEach(System.out::println);
+
+    }
+}
