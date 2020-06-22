@@ -1,0 +1,21 @@
+package com.learnJava.Stream_Terminal;
+
+import com.learnJava.data.Student;
+import com.learnJava.data.StudentDataBase;
+
+import static java.util.stream.Collectors.counting;
+
+public class StreamCountingExample {
+
+    public static long count(){
+        return StudentDataBase.getAllStudent()
+                .stream()
+                .filter(Student -> Student.getGap() >= 3.9)
+                .collect(counting());
+    }
+
+    public static void main(String[] args) {
+        System.out.println(count());
+
+    }
+}
