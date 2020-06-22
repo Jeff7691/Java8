@@ -1,0 +1,35 @@
+package com.learnJava.NumericStream;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class NumericStreamMapExample {
+   public static List<Integer> MapToObj(){
+       return IntStream.rangeClosed(1,5)
+               .mapToObj((i) ->{
+                   return new Integer(i);
+               })
+               .collect(Collectors.toList());
+   }
+
+   public static Long MapToLong(){
+       return IntStream.rangeClosed(1,5) // IntStream()
+               .mapToLong((i) -> i) // from int to Long, the first i is int
+               .sum();
+   }
+
+   public static Double MapToDouble(){
+       return IntStream.rangeClosed(1,5)
+               .mapToDouble((i) -> i)
+               .sum();
+   }
+
+    public static void main(String[] args) {
+        System.out.println("MapToObj : " + MapToObj());
+        System.out.println("MapToLong : " + MapToLong());
+        System.out.println("MapToDouble : " + MapToDouble());
+
+    }
+}
