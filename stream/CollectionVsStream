@@ -1,0 +1,61 @@
+package com.learnJava.stream;
+
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
+public class CollectionsVsStream {
+    public static void main(String[] args) {
+
+        //Collections
+       // ArrayList<String> names = new ArrayList<>();
+        //add
+        //names.add("Adam");
+        //names.add("Jim");
+        //names.add("Jenny");
+        //collection can traverse n times, but stream can only traverse only one time.
+        //for(String name: names){
+        //    System.out.println(name);
+        //}
+        //for(String name: names){
+        //    System.out.println(name);
+        //}
+        //use for loop: performance External Iteration
+
+        //remove
+       // names.remove(0); // use index to remove
+
+        //System.out.println(names);
+
+        // stream can't add and remove once it created.
+        //names.stream()
+
+        //can only traverse stream only once
+        //Stream<String> nameStream = names.stream();
+        //nameStream.forEach(System.out::println);
+        //java.lang.IllegalStateException: stream has already been operated upon or closed
+       // nameStream.forEach(System.out::println);
+        //use forEach: performance Internal Iteration
+
+
+
+
+        //collection
+        ArrayList<String> name = new ArrayList<>();
+        name.add("Adam");
+        name.add("Jim");
+        name.add("Jenny");
+        for(String names : name){
+            System.out.println(name);
+        }
+        for(String names : name){
+            System.out.println(name);
+        }
+        name.remove(2);
+        System.out.println(name);
+
+        Stream<String> nameString = name.stream();
+        name.stream().forEach(System.out :: println);
+    }
+}
